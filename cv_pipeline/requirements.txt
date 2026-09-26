@@ -1,0 +1,27 @@
+# ============================================================
+# Neighborhood Vehicle Awareness System - CV Pipeline
+# CPU-only dependencies
+# ============================================================
+
+# --- PyTorch (CPU-only) ---
+# Install CPU-only builds of torch and torchvision.
+# The --extra-index-url flag in pip install fetches these from PyTorch's CPU channel.
+torch==2.14.0+cpu
+torchvision
+
+# --- YOLOv8 (vehicle detection + ByteTrack tracking) ---
+# ultralytics bundles YOLOv8 model loading, inference, and ByteTrack tracker.
+ultralytics>=8.2.0
+
+# --- License Plate OCR ---
+# EasyOCR for reading plate text. Depends on torch (already listed above).
+easyocr>=1.7.1
+
+# --- OpenCV (frame I/O, drawing bounding boxes) ---
+# Headless build avoids pulling in Qt/GUI libs we don't need on a server/pipeline.
+opencv-python-headless>=4.9.0
+
+# --- Utilities (pulled in transitively but pinned for reproducibility) ---
+numpy>=1.24.0
+Pillow>=10.0.0
+huggingface-hub>=0.20.0
