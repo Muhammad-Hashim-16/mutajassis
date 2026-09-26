@@ -180,26 +180,32 @@ export default function TimelinePage() {
       </FadeIn>
 
       {/* Vehicle Selector Bar with Custom UI Dropdown */}
-      <FadeIn delay={75} className="relative z-30">
-        <div className="w-full max-w-full rounded-2xl border border-border bg-card p-4 sm:p-5 shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-          <div className="space-y-0.5">
-            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground block">
-              Select Vehicle to Trace
-            </span>
-            <p className="text-xs text-muted-foreground">
-              Vehicles identified across multiple cameras are prioritized first.
-            </p>
-          </div>
+      <div
+        className="relative z-50 w-full max-w-full rounded-2xl border border-border bg-card p-4 sm:p-5 shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4"
+        style={{ position: "relative", zIndex: 50 }}
+      >
+        <div className="space-y-0.5">
+          <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground block">
+            Select Vehicle to Trace
+          </span>
+          <p className="text-xs text-muted-foreground">
+            Vehicles identified across multiple cameras are prioritized first.
+          </p>
+        </div>
 
-          <div ref={dropdownRef} className="relative w-full sm:w-auto sm:min-w-[340px] max-w-full">
-            {/* Custom Dropdown Trigger Button */}
-            <button
-              type="button"
-              onClick={() => setDropdownOpen((prev) => !prev)}
-              aria-haspopup="listbox"
-              aria-expanded={dropdownOpen}
-              className="w-full min-h-[46px] rounded-xl border border-border bg-background hover:bg-muted/40 px-4 py-2.5 text-sm font-semibold text-foreground shadow-xs transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 flex items-center justify-between gap-3 cursor-pointer"
-            >
+        <div
+          ref={dropdownRef}
+          className="relative z-50 w-full sm:w-auto sm:min-w-[340px] max-w-full"
+          style={{ position: "relative", zIndex: 50 }}
+        >
+          {/* Custom Dropdown Trigger Button */}
+          <button
+            type="button"
+            onClick={() => setDropdownOpen((prev) => !prev)}
+            aria-haspopup="listbox"
+            aria-expanded={dropdownOpen}
+            className="w-full min-h-[46px] rounded-xl border border-border bg-background hover:bg-muted/40 px-4 py-2.5 text-sm font-semibold text-foreground shadow-xs transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 flex items-center justify-between gap-3 cursor-pointer"
+          >
               <div className="flex items-center gap-2.5 truncate">
                 <span className="font-mono text-base font-bold tracking-tight text-foreground truncate">
                   {isPlateLike(selectedVehicleKey)
@@ -223,11 +229,12 @@ export default function TimelinePage() {
               />
             </button>
 
-            {/* Custom Dropdown Popover (stacked in front with z-50) */}
+            {/* Custom Dropdown Popover (stacked in front with zIndex 9999) */}
             {dropdownOpen && (
               <div
                 role="listbox"
-                className="absolute right-0 top-full mt-2 w-full sm:w-[380px] z-50 rounded-2xl border border-border bg-card shadow-2xl p-2 space-y-1 max-h-[340px] overflow-y-auto animate-in fade-in zoom-in-95 duration-150"
+                style={{ position: "absolute", zIndex: 9999 }}
+                className="absolute right-0 top-full mt-2 w-full sm:w-[380px] z-[9999] rounded-2xl border border-border bg-card shadow-2xl p-2 space-y-1 max-h-[340px] overflow-y-auto animate-in fade-in zoom-in-95 duration-150"
               >
                 <div className="px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-wider text-muted-foreground border-b border-border/50 mb-1">
                   Select a vehicle ({sortedVehicleOptions.length} recorded)
@@ -284,12 +291,12 @@ export default function TimelinePage() {
             )}
           </div>
         </div>
-      </FadeIn>
 
-      {/* Main Layout: Summary Card + Timeline (set to relative z-10 so dropdown above sits in front) */}
+      {/* Main Layout: Summary Card + Timeline */}
       {currentSummary && (
-        <FadeIn delay={150} className="relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <div style={{ position: "relative", zIndex: 1 }}>
+          <FadeIn delay={150}>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             {/* Left Column: Vehicle Summary Card */}
             <div className="lg:col-span-1 lg:sticky lg:top-20 space-y-4">
               <VehicleSummaryCard
@@ -352,7 +359,8 @@ export default function TimelinePage() {
             </div>
           </div>
         </FadeIn>
-      )}
-    </div>
-  );
+      </div>
+    )}
+  </div>
+);
 }
