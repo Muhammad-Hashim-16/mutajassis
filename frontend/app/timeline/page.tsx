@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { getCameras, getRegisteredVehicles, getSightings, getVehicleSummary } from "@/lib/data";
 import type { Camera, RegisteredVehicle, Sighting, VehicleSummary } from "@/lib/types";
 import VehicleSummaryCard from "@/components/VehicleSummaryCard";
 import VehicleTimelineNode from "@/components/VehicleTimelineNode";
 import { FadeIn } from "@/components/FadeIn";
-import { Car, Route, ChevronDown, Clock, ShieldAlert } from "lucide-react";
+import { Car, Route, ChevronDown, ShieldAlert, Check } from "lucide-react";
 
 function isPlateLike(key?: string | null): boolean {
   if (!key) return false;
@@ -20,6 +20,20 @@ export default function TimelinePage() {
   const [registeredVehicles, setRegisteredVehicles] = useState<RegisteredVehicle[]>([]);
   const [selectedVehicleKey, setSelectedVehicleKey] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -162,59 +176,119 @@ export default function TimelinePage() {
           <p className="text-base text-muted-foreground sm:text-lg">
             Trace a vehicle's movement across every camera in the neighborhood.
           </p>
-          <p className="text-xs text-muted-foreground/80 flex items-center gap-1.5 pt-1">
-            <Clock className="h-3 w-3 text-muted-foreground" />
-            Sequence is ordered by detection time within the demo footage.
-          </p>
         </div>
       </FadeIn>
 
-      {/* Vehicle Selector Bar */}
-      <FadeIn delay={75}>
+      {/* Vehicle Selector Bar with Custom UI Dropdown */}
+      <FadeIn delay={75} className="relative z-30">
         <div className="w-full max-w-full rounded-2xl border border-border bg-card p-4 sm:p-5 shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
           <div className="space-y-0.5">
-            <label
-              htmlFor="vehicle-select"
-              className="text-xs font-bold uppercase tracking-wider text-muted-foreground"
-            >
+            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground block">
               Select Vehicle to Trace
-            </label>
+            </span>
             <p className="text-xs text-muted-foreground">
               Vehicles identified across multiple cameras are prioritized first.
             </p>
           </div>
 
-          <div className="relative w-full sm:w-auto sm:min-w-[320px] max-w-full">
-            <select
-              id="vehicle-select"
-              value={selectedVehicleKey}
-              onChange={(e) => setSelectedVehicleKey(e.target.value)}
-              className="w-full min-h-[44px] appearance-none rounded-xl border border-border bg-background px-4 py-2.5 pr-10 text-sm font-semibold text-foreground shadow-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer"
+          <div ref={dropdownRef} className="relative w-full sm:w-auto sm:min-w-[340px] max-w-full">
+            {/* Custom Dropdown Trigger Button */}
+            <button
+              type="button"
+              onClick={() => setDropdownOpen((prev) => !prev)}
+              aria-haspopup="listbox"
+              aria-expanded={dropdownOpen}
+              className="w-full min-h-[46px] rounded-xl border border-border bg-background hover:bg-muted/40 px-4 py-2.5 text-sm font-semibold text-foreground shadow-xs transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 flex items-center justify-between gap-3 cursor-pointer"
             >
-              {sortedVehicleOptions.map((v) => {
-                const count = (v.sighting_ids || []).length;
-                const isPlate = isPlateLike(v.vehicle_key);
-                const label = isPlate
-                  ? v.vehicle_key
-                  : `Unidentified Vehicle (ID: ${v.vehicle_key})`;
-                const suffix = count >= 2 ? `★ ${count} camera sightings` : `1 sighting`;
-                return (
-                  <option key={v.vehicle_key} value={v.vehicle_key}>
-                    {label} — {suffix}
-                  </option>
-                );
-              })}
-            </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground">
-              <ChevronDown className="h-4 w-4" />
-            </div>
+              <div className="flex items-center gap-2.5 truncate">
+                <span className="font-mono text-base font-bold tracking-tight text-foreground truncate">
+                  {isPlateLike(selectedVehicleKey)
+                    ? selectedVehicleKey
+                    : `Unidentified (ID: ${selectedVehicleKey})`}
+                </span>
+                {((sortedVehicleOptions.find((v) => v.vehicle_key === selectedVehicleKey)?.sighting_ids || []).length >= 2) ? (
+                  <span className="inline-flex items-center rounded-full bg-primary/10 border border-primary/20 px-2 py-0.5 text-xs font-semibold text-primary shrink-0">
+                    ★ {(sortedVehicleOptions.find((v) => v.vehicle_key === selectedVehicleKey)?.sighting_ids || []).length} cameras
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center rounded-full bg-muted border border-border px-2 py-0.5 text-xs font-medium text-muted-foreground shrink-0">
+                    1 camera
+                  </span>
+                )}
+              </div>
+              <ChevronDown
+                className={`h-4 w-4 text-muted-foreground shrink-0 transition-transform duration-200 ${
+                  dropdownOpen ? "rotate-180 text-primary" : ""
+                }`}
+              />
+            </button>
+
+            {/* Custom Dropdown Popover (stacked in front with z-50) */}
+            {dropdownOpen && (
+              <div
+                role="listbox"
+                className="absolute right-0 top-full mt-2 w-full sm:w-[380px] z-50 rounded-2xl border border-border bg-card shadow-2xl p-2 space-y-1 max-h-[340px] overflow-y-auto animate-in fade-in zoom-in-95 duration-150"
+              >
+                <div className="px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-wider text-muted-foreground border-b border-border/50 mb-1">
+                  Select a vehicle ({sortedVehicleOptions.length} recorded)
+                </div>
+                {sortedVehicleOptions.map((v) => {
+                  const count = (v.sighting_ids || []).length;
+                  const isPlate = isPlateLike(v.vehicle_key);
+                  const label = isPlate
+                    ? v.vehicle_key
+                    : `Unidentified (ID: ${v.vehicle_key})`;
+                  const isSelected = v.vehicle_key === selectedVehicleKey;
+
+                  return (
+                    <button
+                      key={v.vehicle_key}
+                      type="button"
+                      onMouseDown={(e) => {
+                        // Prevent mousedown from triggering handleClickOutside prematurely
+                        e.stopPropagation();
+                      }}
+                      onClick={() => {
+                        setSelectedVehicleKey(v.vehicle_key);
+                        setDropdownOpen(false);
+                      }}
+                      className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left transition-colors cursor-pointer ${
+                        isSelected
+                          ? "bg-primary/10 text-primary font-bold"
+                          : "hover:bg-muted text-foreground"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 truncate">
+                        {isSelected ? (
+                          <Check className="h-4 w-4 text-primary shrink-0" />
+                        ) : (
+                          <span className="w-4 shrink-0" />
+                        )}
+                        <span className="font-mono text-sm tracking-tight truncate">
+                          {label}
+                        </span>
+                      </div>
+                      {count >= 2 ? (
+                        <span className="inline-flex items-center rounded-full bg-primary/15 px-2 py-0.5 text-xs font-semibold text-primary shrink-0 ml-2">
+                          ★ {count} cameras
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center rounded-full bg-muted/80 px-2 py-0.5 text-xs text-muted-foreground shrink-0 ml-2">
+                          1 camera
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </FadeIn>
 
-      {/* Main Layout: Summary Card + Timeline */}
+      {/* Main Layout: Summary Card + Timeline (set to relative z-10 so dropdown above sits in front) */}
       {currentSummary && (
-        <FadeIn delay={150}>
+        <FadeIn delay={150} className="relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             {/* Left Column: Vehicle Summary Card */}
             <div className="lg:col-span-1 lg:sticky lg:top-20 space-y-4">

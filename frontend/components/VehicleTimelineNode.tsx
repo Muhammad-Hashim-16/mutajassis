@@ -34,6 +34,11 @@ export default function VehicleTimelineNode({
 }: VehicleTimelineNodeProps) {
   const [imageError, setImageError] = useState(!sighting.snapshot_url);
 
+  const isUnreadable =
+    sighting.plate_status === "unreadable" ||
+    sighting.plate_status === "no_plate" ||
+    !sighting.plate_text;
+
   return (
     <div
       className="relative flex gap-4 sm:gap-6 animate-node-in motion-reduce:animate-none"
@@ -73,66 +78,42 @@ export default function VehicleTimelineNode({
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
-            <span className="inline-flex items-center gap-1 font-mono text-xs font-semibold text-primary bg-primary/10 border border-primary/20 px-2.5 py-1 rounded-lg">
-              <Clock className="h-3 w-3" />
-              {formatSeconds(sighting.first_seen_sec)}
+            <span className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-primary bg-primary/10 border border-primary/20 px-2.5 py-1 rounded-lg">
+              <Clock className="h-3.5 w-3.5" />
+              <span>{formatSeconds(sighting.first_seen_sec)}</span>
             </span>
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-stretch gap-4 pt-3.5">
-          {/* Sighting Snapshot Thumbnail with Fallback */}
-          <div className="relative h-28 sm:h-20 w-full sm:w-32 shrink-0 overflow-hidden rounded-xl bg-slate-900 border border-border/50 flex items-center justify-center">
-            {!imageError && sighting.snapshot_url ? (
+        {/* Enlarged Snapshot Image (only rendered when an actual image is available and loaded) */}
+        {!imageError && sighting.snapshot_url && (
+          <div className="pt-3.5">
+            <div className="relative h-44 sm:h-52 w-full overflow-hidden rounded-xl bg-slate-900 border border-border/50">
               <img
                 src={sighting.snapshot_url}
                 alt={`Sighting at ${cameraName}`}
                 onError={() => setImageError(true)}
                 className="h-full w-full object-cover"
               />
-            ) : (
-              <div className="flex flex-col items-center justify-center text-slate-400 p-2 text-center">
-                <Car className="h-6 w-6 text-slate-400 mb-0.5" />
-                <span className="text-[10px] text-slate-500 font-medium">Snapshot unavailable</span>
-              </div>
-            )}
-          </div>
-
-          {/* Sighting Metrics */}
-          <div className="flex-1 min-w-0 flex flex-col justify-between space-y-2">
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              <div className="rounded-lg bg-muted/40 p-2 border border-border/30">
-                <span className="text-muted-foreground block text-[11px]">Dwell Time</span>
-                <span className="font-mono font-semibold text-foreground">
-                  {formatDwell(sighting.dwell_sec)}
-                </span>
-              </div>
-
-              <div className="rounded-lg bg-muted/40 p-2 border border-border/30">
-                <span className="text-muted-foreground block text-[11px]">Time Span</span>
-                <span className="font-mono font-semibold text-foreground">
-                  {formatSeconds(sighting.first_seen_sec)} – {formatSeconds(sighting.last_seen_sec)}
-                </span>
-              </div>
-            </div>
-
-            {/* Recognition Quality / Confidence */}
-            <div className="flex flex-wrap items-center justify-between gap-1 text-xs text-muted-foreground pt-1">
-              <span>
-                Plate:{" "}
-                <span className="font-medium text-foreground capitalize">
-                  {sighting.plate_status.replace("_", " ")}
-                </span>
-              </span>
-
-              {sighting.plate_confidence && (
-                <span className="flex items-center gap-1 font-mono text-[11px] text-safe font-medium">
-                  <ShieldCheck className="h-3 w-3" />
-                  {Math.round(sighting.plate_confidence * 100)}% match
-                </span>
-              )}
             </div>
           </div>
+        )}
+
+        {/* Simplified information row: Stayed duration + conditional unreadable badge */}
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 text-sm">
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <span>Stayed:</span>
+            <span className="font-mono font-bold text-foreground">
+              {formatDwell(sighting.dwell_sec)}
+            </span>
+          </div>
+
+          {/* Only mention "Plate unreadable" when the plate was not detected or unreadable */}
+          {isUnreadable && (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-verify/10 border border-verify/25 px-2.5 py-0.5 text-xs font-semibold text-verify">
+              Plate unreadable
+            </span>
+          )}
         </div>
       </div>
     </div>
