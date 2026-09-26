@@ -77,7 +77,7 @@ export default function AddVehicleForm({
           <ShieldPlus className="h-4 w-4" />
         </div>
         <div>
-          <h2 className="text-base font-bold text-foreground">Register New Resident Vehicle</h2>
+          <h2 className="text-base font-bold text-foreground">Register New Vehicle</h2>
           <p className="text-xs text-muted-foreground">
             Added plates are verified automatically across all cameras.
           </p>

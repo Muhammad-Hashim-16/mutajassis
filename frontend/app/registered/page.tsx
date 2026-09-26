@@ -73,7 +73,7 @@ export default function RegisteredPage() {
           <div className="flex items-center justify-between gap-2">
             <div>
               <h2 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
-                Colony Roster
+                Colony Catalogue
               </h2>
               <p className="text-xs sm:text-sm text-muted-foreground">
                 Plates on this list are automatically classified as known resident vehicles.
