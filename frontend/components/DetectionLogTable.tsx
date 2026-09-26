@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Car, Clock } from "lucide-react";
+import { Clock, ShieldCheck, Car, AlertCircle } from "lucide-react";
+import { formatTimeOfDay } from "@/lib/timeUtils";
 
 export interface DetectionRow {
   key: string;
@@ -18,35 +18,6 @@ export interface DetectionRow {
 
 interface DetectionLogTableProps {
   detections: DetectionRow[];
-}
-
-function SnapshotThumbnail({ src, alt }: { src: string; alt: string }) {
-  const [hasError, setHasError] = useState(!src);
-
-  if (hasError || !src) {
-    return (
-      <div className="flex h-10 w-14 items-center justify-center rounded-lg bg-muted text-muted-foreground border border-border/50 shrink-0">
-        <Car className="h-5 w-5" aria-hidden="true" />
-      </div>
-    );
-  }
-
-  return (
-    <div className="relative h-10 w-14 overflow-hidden rounded-lg border border-border/50 bg-slate-900 shrink-0">
-      <img
-        src={src}
-        alt={alt}
-        onError={() => setHasError(true)}
-        className="h-full w-full object-cover"
-      />
-    </div>
-  );
-}
-
-function formatSeconds(totalSec: number): string {
-  const mins = Math.floor(totalSec / 60);
-  const secs = Math.floor(totalSec % 60);
-  return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
 }
 
 export default function DetectionLogTable({ detections }: DetectionLogTableProps) {
@@ -78,88 +49,91 @@ export default function DetectionLogTable({ detections }: DetectionLogTableProps
             <div className="mb-3.5 flex h-12 w-12 items-center justify-center rounded-xl bg-muted text-muted-foreground">
               <Clock className="h-6 w-6" aria-hidden="true" />
             </div>
-            <h3 className="text-base font-semibold text-foreground">No detections yet</h3>
+            <h3 className="text-base font-semibold text-foreground">No vehicle sightings yet</h3>
             <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-              Vehicles detected across active camera streams will be logged here automatically.
+              Vehicles detected across active camera streams will appear here chronologically.
             </p>
           </div>
         ) : (
-          <table className="w-full text-left text-sm border-collapse min-w-[540px]">
+          <table className="w-full text-left text-sm border-collapse min-w-[520px]">
             <thead className="sticky top-0 z-10 border-b border-border bg-muted/95 backdrop-blur-sm text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               <tr>
-                <th scope="col" className="py-3 px-4 w-20">
-                  Snapshot
+                <th scope="col" className="py-3 px-5 min-w-[120px]">
+                  Time Seen
                 </th>
-                <th scope="col" className="py-3 px-4 min-w-[160px]">
-                  Camera
+                <th scope="col" className="py-3 px-5 min-w-[180px]">
+                  Camera Location
                 </th>
-                <th scope="col" className="py-3 px-4 min-w-[140px]">
-                  Plate / Temp ID
+                <th scope="col" className="py-3 px-5 min-w-[150px]">
+                  Vehicle Plate
                 </th>
-                <th scope="col" className="py-3 px-4 min-w-[160px]">
-                  Status
-                </th>
-                <th scope="col" className="py-3 px-4 text-right min-w-[100px]">
-                  Timestamp
+                <th scope="col" className="py-3 px-5 text-right min-w-[150px]">
+                  Colony Status
                 </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border/60">
-              {detections.map((item) => (
-                <tr
-                  key={item.key}
-                  className="transition-colors hover:bg-muted/40 animate-row-in motion-reduce:animate-none"
-                >
-                  {/* Thumbnail */}
-                  <td className="py-3 px-4 align-middle">
-                    <SnapshotThumbnail
-                      src={item.snapshotUrl}
-                      alt={`Snapshot for ${item.displayId}`}
-                    />
-                  </td>
+              {detections.map((item) => {
+                const formattedTime = formatTimeOfDay(item.firstSeenSec);
+                const isTemp = item.statusType === "unidentified" || item.displayId.startsWith("TMP-");
+                const plateText = isTemp ? "No Plate Detected" : item.displayId;
 
-                  {/* Camera Name */}
-                  <td className="py-3 px-4 align-middle font-medium text-foreground">
-                    <span className="truncate block max-w-[200px]" title={item.cameraName}>
-                      {item.cameraName}
-                    </span>
-                  </td>
-
-                  {/* Plate / Temp ID */}
-                  <td className="py-3 px-4 align-middle">
-                    <span className="font-mono text-sm font-semibold tracking-wider text-foreground">
-                      {item.displayId}
-                    </span>
-                  </td>
-
-                  {/* Status Badge */}
-                  <td className="py-3 px-4 align-middle">
-                    {item.statusType === "known" && (
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-safe/10 border border-safe/25 px-2.5 py-0.5 text-xs font-medium text-safe">
-                        <span className="h-1.5 w-1.5 rounded-full bg-safe" />
-                        {item.statusLabel}
+                return (
+                  <tr
+                    key={item.key}
+                    className="transition-colors hover:bg-muted/40 animate-row-in motion-reduce:animate-none"
+                  >
+                    {/* Time Seen (using a.m. / p.m.) */}
+                    <td className="py-3.5 px-5 align-middle">
+                      <span className="font-mono text-xs font-semibold text-primary bg-primary/10 border border-primary/20 px-2.5 py-1 rounded-lg">
+                        {formattedTime}
                       </span>
-                    )}
-                    {item.statusType === "unknown" && (
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-verify/10 border border-verify/25 px-2.5 py-0.5 text-xs font-medium text-verify">
-                        <span className="h-1.5 w-1.5 rounded-full bg-verify" />
-                        {item.statusLabel}
-                      </span>
-                    )}
-                    {item.statusType === "unidentified" && (
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-muted border border-border px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
-                        <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/60" />
-                        {item.statusLabel}
-                      </span>
-                    )}
-                  </td>
+                    </td>
 
-                  {/* Timestamp */}
-                  <td className="py-3 px-4 align-middle text-right font-mono text-xs text-muted-foreground">
-                    {formatSeconds(item.firstSeenSec)}
-                  </td>
-                </tr>
-              ))}
+                    {/* Camera Location */}
+                    <td className="py-3.5 px-5 align-middle font-medium text-foreground">
+                      <span className="truncate block max-w-[220px]" title={item.cameraName}>
+                        {item.cameraName}
+                      </span>
+                    </td>
+
+                    {/* Vehicle Plate */}
+                    <td className="py-3.5 px-5 align-middle">
+                      {isTemp ? (
+                        <span className="text-xs text-muted-foreground italic font-medium">
+                          No Plate Detected
+                        </span>
+                      ) : (
+                        <span className="font-mono text-sm font-bold tracking-wider text-foreground">
+                          {plateText}
+                        </span>
+                      )}
+                    </td>
+
+                    {/* Colony Status Badge */}
+                    <td className="py-3.5 px-5 align-middle text-right">
+                      {item.statusType === "known" && (
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-safe/10 border border-safe/25 px-2.5 py-0.5 text-xs font-semibold text-safe">
+                          <ShieldCheck className="h-3.5 w-3.5" />
+                          Resident
+                        </span>
+                      )}
+                      {item.statusType === "unknown" && (
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-verify/10 border border-verify/25 px-2.5 py-0.5 text-xs font-semibold text-verify">
+                          <span className="h-1.5 w-1.5 rounded-full bg-verify" />
+                          Unregistered Visitor
+                        </span>
+                      )}
+                      {item.statusType === "unidentified" && (
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-muted border border-border px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+                          <AlertCircle className="h-3.5 w-3.5 text-muted-foreground" />
+                          Unidentified
+                        </span>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         )}

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Car, Clock, Camera as CameraIcon, ShieldCheck } from "lucide-react";
 import type { Sighting } from "@/lib/types";
+import { formatTimeOfDay } from "@/lib/timeUtils";
 
 interface VehicleTimelineNodeProps {
   sighting: Sighting;
@@ -10,12 +11,6 @@ interface VehicleTimelineNodeProps {
   index: number;
   isLast: boolean;
   isFirst: boolean;
-}
-
-function formatSeconds(totalSec: number): string {
-  const mins = Math.floor(totalSec / 60);
-  const secs = Math.floor(totalSec % 60);
-  return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
 }
 
 function formatDwell(sec: number): string {
@@ -80,7 +75,7 @@ export default function VehicleTimelineNode({
           <div className="flex items-center gap-2 shrink-0">
             <span className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-primary bg-primary/10 border border-primary/20 px-2.5 py-1 rounded-lg">
               <Clock className="h-3.5 w-3.5" />
-              <span>{formatSeconds(sighting.first_seen_sec)}</span>
+              <span>{formatTimeOfDay(sighting.first_seen_sec)}</span>
             </span>
           </div>
         </div>

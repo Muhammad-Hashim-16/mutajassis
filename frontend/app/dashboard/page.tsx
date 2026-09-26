@@ -25,8 +25,8 @@ function deriveDetectionStatus(
     sighting.plate_text.trim() === ""
   ) {
     return {
-      displayId: `TMP-${sighting.track_id}`,
-      statusLabel: "Unidentified Vehicle",
+      displayId: "No Plate Detected",
+      statusLabel: "Unidentified",
       statusType: "unidentified",
     };
   }
@@ -38,13 +38,13 @@ function deriveDetectionStatus(
   if (isRegistered) {
     return {
       displayId: sighting.plate_text,
-      statusLabel: "Known Vehicle",
+      statusLabel: "Resident",
       statusType: "known",
     };
   } else {
     return {
       displayId: sighting.plate_text,
-      statusLabel: "Unknown Vehicle",
+      statusLabel: "Unregistered Visitor",
       statusType: "unknown",
     };
   }
@@ -174,11 +174,10 @@ export default function DashboardPage() {
     }
   }, []);
 
-  const cameraCount = cameras.length;
-  const subtitle =
-    cameraCount === 1
-      ? "Monitoring 1 entry point across the colony in real time."
-      : `Monitoring ${cameraCount} entry points across the colony in real time.`;
+  // User requirement: 2 camera feeds for enhanced clarity and larger viewport
+  const activeCameras = cameras.slice(0, 2);
+  const cameraCount = activeCameras.length;
+  const subtitle = "Monitoring 2 optical CCTV feeds across the colony in real time.";
 
   return (
     <div className="space-y-12 pb-16">
@@ -215,7 +214,7 @@ export default function DashboardPage() {
         </FadeIn>
       )}
 
-      {/* Camera Grid Section */}
+      {/* Camera Grid Section (Converted to 2-box feed) */}
       {!isLoading && cameraCount > 0 ? (
         <FadeIn delay={150}>
           <div className="space-y-4">
@@ -228,12 +227,8 @@ export default function DashboardPage() {
               </p>
             </div>
 
-            <div
-              className={`grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 ${
-                cameraCount === 1 ? "max-w-xl mx-auto" : ""
-              }`}
-            >
-              {cameras.map((camera) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+              {activeCameras.map((camera) => (
                 <CameraFeedCard
                   key={camera.id}
                   camera={camera}
