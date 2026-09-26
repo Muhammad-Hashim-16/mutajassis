@@ -208,49 +208,6 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 max-w-3xl mx-auto">
-            {/* Muhammad Hashim Card */}
-            <div className="flex flex-col justify-between p-6 rounded-2xl bg-card border border-border shadow-sm hover:shadow-md hover:border-primary/40 transition-all duration-300">
-              <div className="space-y-1.5">
-                <span className="inline-block rounded-full bg-primary/10 text-primary px-3 py-0.5 text-xs font-semibold tracking-wide">
-                  Frontend & UI
-                </span>
-                <h3 className="text-xl font-bold text-foreground tracking-tight pt-1">
-                  Muhammad Hashim
-                </h3>
-                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                  Led frontend architecture, responsive design system, vehicle timeline visualization, and live feed integration.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-3 pt-5 mt-4 border-t border-border/60">
-                <a
-                  href="https://www.linkedin.com/in/muhammad-hashim-naeem/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-11 w-11 items-center justify-center rounded-xl bg-muted/60 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
-                  title="Muhammad Hashim LinkedIn"
-                  aria-label="Muhammad Hashim on LinkedIn"
-                >
-                  <LinkedinIcon className="h-5 w-5" />
-                </a>
-
-                <a
-                  href="https://github.com/Muhammad-Hashim-16"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-11 w-11 items-center justify-center rounded-xl bg-muted/60 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
-                  title="Muhammad Hashim GitHub"
-                  aria-label="Muhammad Hashim on GitHub"
-                >
-                  <GithubIcon className="h-5 w-5" />
-                </a>
-
-                <span className="text-xs text-muted-foreground font-medium pl-1">
-                  Connect & Profile
-                </span>
-              </div>
-            </div>
-
             {/* Batool Zafar Card */}
             <div className="flex flex-col justify-between p-6 rounded-2xl bg-card border border-border shadow-sm hover:shadow-md hover:border-primary/40 transition-all duration-300">
               <div className="space-y-1.5">
@@ -284,6 +241,49 @@ export default function HomePage() {
                   className="flex h-11 w-11 items-center justify-center rounded-xl bg-muted/60 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
                   title="Batool Zafar GitHub"
                   aria-label="Batool Zafar on GitHub"
+                >
+                  <GithubIcon className="h-5 w-5" />
+                </a>
+
+                <span className="text-xs text-muted-foreground font-medium pl-1">
+                  Connect & Profile
+                </span>
+              </div>
+            </div>
+
+            {/* Muhammad Hashim Card */}
+            <div className="flex flex-col justify-between p-6 rounded-2xl bg-card border border-border shadow-sm hover:shadow-md hover:border-primary/40 transition-all duration-300">
+              <div className="space-y-1.5">
+                <span className="inline-block rounded-full bg-primary/10 text-primary px-3 py-0.5 text-xs font-semibold tracking-wide">
+                  Frontend & UI
+                </span>
+                <h3 className="text-xl font-bold text-foreground tracking-tight pt-1">
+                  Muhammad Hashim
+                </h3>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                  Led frontend architecture, responsive design system, vehicle timeline visualization, and live feed integration.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3 pt-5 mt-4 border-t border-border/60">
+                <a
+                  href="https://www.linkedin.com/in/muhammad-hashim-naeem/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-11 w-11 items-center justify-center rounded-xl bg-muted/60 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
+                  title="Muhammad Hashim LinkedIn"
+                  aria-label="Muhammad Hashim on LinkedIn"
+                >
+                  <LinkedinIcon className="h-5 w-5" />
+                </a>
+
+                <a
+                  href="https://github.com/Muhammad-Hashim-16"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-11 w-11 items-center justify-center rounded-xl bg-muted/60 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
+                  title="Muhammad Hashim GitHub"
+                  aria-label="Muhammad Hashim on GitHub"
                 >
                   <GithubIcon className="h-5 w-5" />
                 </a>
