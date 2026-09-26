@@ -5,8 +5,10 @@ import {
   Car,
   ShieldCheck,
   BellRing,
-  EyeOff,
-  Search,
+  Eye,
+  CheckCircle,
+  Clock,
+  Compass,
 } from "lucide-react";
 import { FadeIn } from "@/components/FadeIn";
 import Logo from "@/components/Logo";
@@ -33,76 +35,91 @@ function GithubIcon({ className = "h-5 w-5" }: { className?: string }) {
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col gap-20 sm:gap-24 pb-12 w-full max-w-full overflow-hidden">
+    <div className="flex flex-col gap-16 sm:gap-20 pb-12 w-full max-w-full overflow-hidden">
       {/* 
-        HERO SECTION 
+        HERO SECTION: Clear, Simple, Welcoming
       */}
-      <section className="pt-12 sm:pt-16 md:pt-24 lg:pt-32 flex flex-col items-center text-center px-2 sm:px-0">
-        <FadeIn className="max-w-4xl space-y-6">
-          <div className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs sm:text-sm font-medium text-primary mb-2 sm:mb-4">
+      <section className="pt-10 sm:pt-14 md:pt-20 flex flex-col items-center text-center px-2 sm:px-0">
+        <FadeIn className="max-w-3xl space-y-6">
+          <div className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs sm:text-sm font-semibold text-primary">
             <span className="flex h-2 w-2 rounded-full bg-primary mr-2 animate-pulse" />
-            GridWatch Live Demonstration
+            Residential Colony Awareness
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground balance">
-            Connecting a Neighborhood's Cameras,{" "}
+
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground balance leading-tight">
+            Connecting Neighbor Cameras,{" "}
             <span className="text-primary block sm:inline mt-1 sm:mt-0">One Plate at a Time.</span>
           </h1>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto balance leading-relaxed">
-            Residential colonies in Faisalabad have independent CCTV cameras with no shared visibility. Tracking an unrecognized vehicle's movement across the neighborhood is manual and reactive. GridWatch automates cross-camera awareness to keep communities informed.
+
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto balance leading-relaxed">
+            Most houses have security cameras that only watch their own gate. GridWatch connects them so neighbors know when an unfamiliar vehicle enters, moves down the street, and stays in the colony.
           </p>
-          <div className="pt-2 sm:pt-4">
+
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <Link
               href="/dashboard"
-              className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 hover:shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+              className="w-full sm:w-auto inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl bg-primary px-7 py-3 text-sm sm:text-base font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 transition-all focus:outline-none focus:ring-2 focus:ring-primary"
             >
-              View Live Dashboard
-              <ArrowRight size={20} />
+              Open Live Dashboard
+              <ArrowRight size={18} />
+            </Link>
+
+            <Link
+              href="/timeline"
+              className="w-full sm:w-auto inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl border border-border bg-card hover:bg-muted px-6 py-3 text-sm sm:text-base font-semibold text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+            >
+              <Compass size={18} className="text-primary" />
+              Trace Vehicle Journey
             </Link>
           </div>
         </FadeIn>
       </section>
 
       {/* 
-        PROBLEM SECTION 
+        WHY IT HELPS: 3 Plain-Language Resident Benefits
       */}
-      <section className="bg-card border border-border rounded-3xl p-6 sm:p-8 md:p-12 shadow-sm relative overflow-hidden">
-        <div className="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+      <section className="bg-card border border-border rounded-3xl p-6 sm:p-8 md:p-10 shadow-sm relative overflow-hidden">
         <FadeIn>
-          <div className="text-center mb-10 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3 sm:mb-4">The Invisible Threat</h2>
-            <p className="text-muted-foreground text-sm sm:text-base max-w-2xl mx-auto">
-              Current security setups in local colonies fail because cameras operate in total isolation.
+          <div className="text-center mb-8 sm:mb-10">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">
+              Why Colonies Need Connected Cameras
+            </h2>
+            <p className="text-muted-foreground text-sm sm:text-base max-w-xl mx-auto">
+              Simple community awareness instead of isolated, forgotten cameras.
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            <div className="flex flex-col items-center text-center space-y-3 sm:space-y-4 p-4 rounded-2xl bg-muted/20 sm:bg-transparent">
-              <div className="p-3.5 sm:p-4 rounded-2xl bg-muted text-muted-foreground">
-                <EyeOff size={30} />
+            {/* Benefit 1 */}
+            <div className="flex flex-col items-center text-center space-y-3 p-4 rounded-2xl bg-muted/20 sm:bg-transparent">
+              <div className="p-3.5 rounded-2xl bg-primary/10 text-primary">
+                <Eye size={26} />
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold">Isolated Vision</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                Each house's camera only sees its own gate. There is no unified view of who is moving through the neighborhood.
-              </p>
-            </div>
-            
-            <div className="flex flex-col items-center text-center space-y-3 sm:space-y-4 p-4 rounded-2xl bg-muted/20 sm:bg-transparent">
-              <div className="p-3.5 sm:p-4 rounded-2xl bg-muted text-muted-foreground">
-                <Search size={30} />
-              </div>
-              <h3 className="text-lg sm:text-xl font-semibold">Reactive Searching</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                Footage is only checked <em>after</em> an incident occurs. Tracking a vehicle means manually knocking on neighbors' doors.
+              <h3 className="text-base sm:text-lg font-bold">Shared Street View</h3>
+              <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
+                Cameras work together across streets so there are no blind spots when a car drives past.
               </p>
             </div>
 
-            <div className="flex flex-col items-center text-center space-y-3 sm:space-y-4 p-4 rounded-2xl bg-muted/20 sm:bg-transparent">
-              <div className="p-3.5 sm:p-4 rounded-2xl bg-muted text-muted-foreground">
-                <BellRing size={30} />
+            {/* Benefit 2 */}
+            <div className="flex flex-col items-center text-center space-y-3 p-4 rounded-2xl bg-muted/20 sm:bg-transparent">
+              <div className="p-3.5 rounded-2xl bg-safe/10 text-safe">
+                <CheckCircle size={26} />
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold">No Early Warning</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                If an unrecognized vehicle circles the colony for hours, no one knows. GridWatch replaces blindness with proactive awareness.
+              <h3 className="text-base sm:text-lg font-bold">Recognizes Neighbors</h3>
+              <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
+                Registered resident vehicles pass by quietly without triggering any alerts.
+              </p>
+            </div>
+
+            {/* Benefit 3 */}
+            <div className="flex flex-col items-center text-center space-y-3 p-4 rounded-2xl bg-muted/20 sm:bg-transparent">
+              <div className="p-3.5 rounded-2xl bg-verify/10 text-verify">
+                <Clock size={26} />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold">Notifies on Lingering Cars</h3>
+              <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
+                If an unknown vehicle stays around for too long, neighbors get a calm alert to verify it.
               </p>
             </div>
           </div>
@@ -110,59 +127,59 @@ export default function HomePage() {
       </section>
 
       {/* 
-        HOW IT WORKS SECTION 
+        HOW IT WORKS: 4 Plain Steps
       */}
       <section>
         <FadeIn delay={100}>
-          <div className="text-center mb-10 sm:mb-16">
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3 sm:mb-4">How It Works</h2>
-            <p className="text-muted-foreground text-sm sm:text-base max-w-2xl mx-auto">
-              A seamless, automated flow that turns independent cameras into a collaborative awareness network.
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">How It Works</h2>
+            <p className="text-muted-foreground text-sm sm:text-base max-w-xl mx-auto">
+              Automatic, continuous protection in four simple steps.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {/* Step 1 */}
-            <div className="group relative flex flex-col p-5 sm:p-6 bg-card border border-border rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-              <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary">
-                <Camera size={24} />
+            <div className="flex flex-col p-5 bg-card border border-border rounded-2xl shadow-xs">
+              <div className="mb-3.5 inline-flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 text-primary">
+                <Camera size={22} />
               </div>
-              <h3 className="text-base sm:text-lg font-bold mb-1.5 sm:mb-2">1. Cameras Watch</h3>
+              <h3 className="text-base font-bold mb-1.5">1. Cameras Watch</h3>
               <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                Independent cameras across the colony continuously monitor entry points and streets.
+                Cameras at entry gates and colony streets record passing vehicles.
               </p>
             </div>
 
             {/* Step 2 */}
-            <div className="group relative flex flex-col p-5 sm:p-6 bg-card border border-border rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-              <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-500/10 text-blue-500">
-                <Car size={24} />
+            <div className="flex flex-col p-5 bg-card border border-border rounded-2xl shadow-xs">
+              <div className="mb-3.5 inline-flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 text-primary">
+                <Car size={22} />
               </div>
-              <h3 className="text-base sm:text-lg font-bold mb-1.5 sm:mb-2">2. Vehicles Detected</h3>
+              <h3 className="text-base font-bold mb-1.5">2. Plates Read</h3>
               <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                Each passing vehicle is detected automatically, and its license plate is read when visible.
+                License plates are detected automatically as vehicles enter the view.
               </p>
             </div>
 
             {/* Step 3 */}
-            <div className="group relative flex flex-col p-5 sm:p-6 bg-card border border-border rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-              <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-safe/10 text-safe">
-                <ShieldCheck size={24} />
+            <div className="flex flex-col p-5 bg-card border border-border rounded-2xl shadow-xs">
+              <div className="mb-3.5 inline-flex items-center justify-center w-11 h-11 rounded-xl bg-safe/10 text-safe">
+                <ShieldCheck size={22} />
               </div>
-              <h3 className="text-base sm:text-lg font-bold mb-1.5 sm:mb-2">3. Cross-Checked</h3>
+              <h3 className="text-base font-bold mb-1.5">3. Auto Checked</h3>
               <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                Plates are instantly matched against the neighborhood's registered vehicle list.
+                Plates are checked against the colony catalogue of resident cars.
               </p>
             </div>
 
             {/* Step 4 */}
-            <div className="group relative flex flex-col p-5 sm:p-6 bg-card border border-border rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-              <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-verify/10 text-verify">
-                <BellRing size={24} />
+            <div className="flex flex-col p-5 bg-card border border-border rounded-2xl shadow-xs">
+              <div className="mb-3.5 inline-flex items-center justify-center w-11 h-11 rounded-xl bg-verify/10 text-verify">
+                <BellRing size={22} />
               </div>
-              <h3 className="text-base sm:text-lg font-bold mb-1.5 sm:mb-2">4. Residents Notified</h3>
+              <h3 className="text-base font-bold mb-1.5">4. Residents Alerted</h3>
               <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                Unrecognized vehicles that linger trigger a neutral awareness alert for verification — never an accusation.
+                If an unknown vehicle stays around, neighbors receive an alert to verify.
               </p>
             </div>
           </div>
@@ -170,79 +187,53 @@ export default function HomePage() {
       </section>
 
       {/* 
-        CLOSING CTA SECTION 
+        THE TEAM / BUILT BY SECTION: Batool Zafar first, then Muhammad Hashim
       */}
-      <section className="text-center py-8 sm:py-12 md:py-16">
-        <FadeIn delay={150} className="space-y-5 sm:space-y-6">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Ready to see it in action?</h2>
-          <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
-            Experience how seamless vehicle tracking transforms community safety. Check the live dashboard and timeline.
-          </p>
-          <div className="pt-2">
-            <Link
-              href="/dashboard"
-              className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-foreground text-background px-8 py-3.5 text-base font-semibold shadow-sm hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2 focus:ring-offset-background"
-            >
-              Explore Dashboard
-            </Link>
-          </div>
-          <p className="text-xs text-muted-foreground pt-4">
-            Built for Imaginathon by <span className="font-semibold text-foreground">Banao.pk</span> — reimagining Faisalabad.
-          </p>
-        </FadeIn>
-      </section>
-
-      {/* 
-        THE TEAM / BUILT BY SECTION (Prominent, Dedicated Cards)
-      */}
-      <section className="border-t border-border/70 pt-14 pb-4">
-        <FadeIn delay={200}>
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary mb-3">
-              Imaginathon Team
-            </div>
+      <section className="border-t border-border pt-12 pb-4">
+        <FadeIn delay={150}>
+          <div className="text-center mb-8">
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">The Team</h2>
-            <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto mt-2">
-              The builders behind the GridWatch residential awareness prototype.
+            <p className="text-sm text-muted-foreground max-w-md mx-auto mt-1.5">
+              Built for Imaginathon by <strong className="text-foreground font-semibold">Banao.pk</strong>.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl mx-auto">
             {/* Batool Zafar Card */}
-            <div className="flex flex-col justify-between p-6 rounded-2xl bg-card border border-border shadow-sm hover:shadow-md hover:border-primary/40 transition-all duration-300">
+            <div className="flex flex-col justify-between p-5 sm:p-6 rounded-2xl bg-card border border-border shadow-xs hover:border-primary/40 transition-colors">
               <div className="space-y-1.5">
-                <span className="inline-block rounded-full bg-verify/10 text-verify px-3 py-0.5 text-xs font-semibold tracking-wide">
+                <span className="inline-block rounded-full bg-verify/10 text-verify px-3 py-0.5 text-xs font-semibold">
                   Computer Vision & Backend
                 </span>
-                <h3 className="text-xl font-bold text-foreground tracking-tight pt-1">
+                <h3 className="text-lg sm:text-xl font-bold text-foreground tracking-tight pt-1">
                   Batool Zafar
                 </h3>
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                  Developed automated vehicle detection, multi-camera tracking logic, plate OCR pipeline, and dwell analytics.
+                  Engineered vehicle detection, multi-camera tracking, license plate OCR, and dwell analytics.
                 </p>
               </div>
 
-              <div className="flex items-center gap-3 pt-5 mt-4 border-t border-border/60">
+              <div className="flex items-center gap-2.5 pt-4 mt-3 border-t border-border/60">
                 <a
                   href="https://www.linkedin.com/in/batool-zafar-141596298/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-11 w-11 items-center justify-center rounded-xl bg-muted/60 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
-                  title="Batool Zafar LinkedIn"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-muted/60 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer"
+                  title="Batool Zafar on LinkedIn"
                   aria-label="Batool Zafar on LinkedIn"
                 >
-                  <LinkedinIcon className="h-5 w-5" />
+                  <LinkedinIcon className="h-4 w-4" />
                 </a>
 
                 <a
                   href="https://github.com/batool-zafar123"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-11 w-11 items-center justify-center rounded-xl bg-muted/60 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
-                  title="Batool Zafar GitHub"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-muted/60 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer"
+                  title="Batool Zafar on GitHub"
                   aria-label="Batool Zafar on GitHub"
                 >
-                  <GithubIcon className="h-5 w-5" />
+                  <GithubIcon className="h-4 w-4" />
                 </a>
 
                 <span className="text-xs text-muted-foreground font-medium pl-1">
@@ -252,40 +243,40 @@ export default function HomePage() {
             </div>
 
             {/* Muhammad Hashim Card */}
-            <div className="flex flex-col justify-between p-6 rounded-2xl bg-card border border-border shadow-sm hover:shadow-md hover:border-primary/40 transition-all duration-300">
+            <div className="flex flex-col justify-between p-5 sm:p-6 rounded-2xl bg-card border border-border shadow-xs hover:border-primary/40 transition-colors">
               <div className="space-y-1.5">
-                <span className="inline-block rounded-full bg-primary/10 text-primary px-3 py-0.5 text-xs font-semibold tracking-wide">
+                <span className="inline-block rounded-full bg-primary/10 text-primary px-3 py-0.5 text-xs font-semibold">
                   Frontend & UI
                 </span>
-                <h3 className="text-xl font-bold text-foreground tracking-tight pt-1">
+                <h3 className="text-lg sm:text-xl font-bold text-foreground tracking-tight pt-1">
                   Muhammad Hashim
                 </h3>
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                  Led frontend architecture, responsive design system, vehicle timeline visualization, and live feed integration.
+                  Designed frontend architecture, responsive layouts, vehicle journey timelines, and camera feeds.
                 </p>
               </div>
 
-              <div className="flex items-center gap-3 pt-5 mt-4 border-t border-border/60">
+              <div className="flex items-center gap-2.5 pt-4 mt-3 border-t border-border/60">
                 <a
                   href="https://www.linkedin.com/in/muhammad-hashim-naeem/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-11 w-11 items-center justify-center rounded-xl bg-muted/60 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
-                  title="Muhammad Hashim LinkedIn"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-muted/60 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer"
+                  title="Muhammad Hashim on LinkedIn"
                   aria-label="Muhammad Hashim on LinkedIn"
                 >
-                  <LinkedinIcon className="h-5 w-5" />
+                  <LinkedinIcon className="h-4 w-4" />
                 </a>
 
                 <a
                   href="https://github.com/Muhammad-Hashim-16"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-11 w-11 items-center justify-center rounded-xl bg-muted/60 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
-                  title="Muhammad Hashim GitHub"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-muted/60 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer"
+                  title="Muhammad Hashim on GitHub"
                   aria-label="Muhammad Hashim on GitHub"
                 >
-                  <GithubIcon className="h-5 w-5" />
+                  <GithubIcon className="h-4 w-4" />
                 </a>
 
                 <span className="text-xs text-muted-foreground font-medium pl-1">
@@ -300,14 +291,14 @@ export default function HomePage() {
       {/* 
         CLEAN MINIMAL FOOTER 
       */}
-      <footer className="mt-auto border-t border-border pt-8 pb-4 text-center space-y-4">
-        <div className="flex items-center justify-center gap-2 font-bold text-sm sm:text-base text-foreground">
-          <Logo size={22} className="text-primary" />
+      <footer className="border-t border-border pt-6 pb-2 text-center space-y-3">
+        <div className="flex items-center justify-center gap-2 font-bold text-sm text-foreground">
+          <Logo size={20} className="text-primary" />
           <span>GridWatch – Faisalabad</span>
         </div>
 
-        <p className="text-xs text-muted-foreground max-w-2xl mx-auto leading-relaxed px-2">
-          Prototype built in a 48-hour hackathon for Imaginathon by Banao.pk. Camera feeds are simulated using real recorded footage for demonstration purposes. This is a neutral awareness system, not an accusation platform.
+        <p className="text-xs text-muted-foreground max-w-xl mx-auto leading-relaxed">
+          Residential vehicle awareness platform. Built for Imaginathon by Banao.pk.
         </p>
       </footer>
     </div>

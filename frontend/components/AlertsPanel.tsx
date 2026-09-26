@@ -276,34 +276,14 @@ function AlertCard({ item, onUpdateStatus, sightings, cameras }: AlertCardProps)
 
       {/* ─────────────────────────────────────────────────────────────
           EXPANDED CARD VIEW
-          Shown strictly after clicking the expand icon, in this exact order:
-          1. Alert
-          2. Numberplate
-          3. Seen at (sequence of stay in order with proper arrows)
-          4. Estimated time in neighborhood (simple aesthetic bar)
-          5. Text: "Flagged for resident verification. Logged in colony timeline."
+          Shown after clicking the expand icon:
+          1. Numberplate & Registration Status
+          2. Seen at (sequence of stay in order with proper arrows)
+          3. Estimated time in neighborhood (simple aesthetic bar)
+          4. Text: "Flagged for resident verification. Logged in colony timeline."
          ───────────────────────────────────────────────────────────── */}
       {isExpanded && (
         <div className="border-t border-border/60 bg-muted/20 p-4 sm:p-5 space-y-4 animate-in fade-in slide-in-from-top-2 duration-200">
-          {/* 1. Alert */}
-          <div className="space-y-1">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-              Alert Status
-            </span>
-            <div className="flex items-center gap-2">
-              {isPending ? (
-                <div className="inline-flex items-center gap-2 rounded-xl bg-verify/10 border border-verify/25 px-3 py-1.5 text-xs font-semibold text-verify">
-                  <AlertTriangle className="h-4 w-4 shrink-0 text-verify" />
-                  <span>Pending Resident Verification — Unrecognized vehicle in colony</span>
-                </div>
-              ) : (
-                <div className="inline-flex items-center gap-2 rounded-xl bg-alert/10 border border-alert/25 px-3 py-1.5 text-xs font-semibold text-alert">
-                  <AlertTriangle className="h-4 w-4 shrink-0 text-alert" />
-                  <span>Unresolved Alert — Not recognized by residents</span>
-                </div>
-              )}
-            </div>
-          </div>
 
           {/* 2. Numberplate */}
           <div className="space-y-1">
