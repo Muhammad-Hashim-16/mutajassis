@@ -1,0 +1,42 @@
+[
+  {
+    "vehicle_key": "LEA-4521",
+    "registered": true,
+    "cumulative_dwell_sec": 100,
+    "sighting_ids": ["s-001", "s-002"],
+    "alert_status": "none",
+    "alert_snapshot_url": null
+  },
+  {
+    "vehicle_key": "MUL-9931",
+    "registered": false,
+    "cumulative_dwell_sec": 420,
+    "sighting_ids": ["s-003", "s-008"],
+    "alert_status": "unresolved_alert",
+    "alert_snapshot_url": "/placeholder-snapshots/car2.jpg"
+  },
+  {
+    "vehicle_key": "FSD-3319",
+    "registered": true,
+    "cumulative_dwell_sec": 30,
+    "sighting_ids": ["s-004"],
+    "alert_status": "none",
+    "alert_snapshot_url": null
+  },
+  {
+    "vehicle_key": "ISB-5567",
+    "registered": false,
+    "cumulative_dwell_sec": 180,
+    "sighting_ids": ["s-010"],
+    "alert_status": "pending_verification",
+    "alert_snapshot_url": "/placeholder-snapshots/car7.jpg"
+  },
+  {
+    "vehicle_key": "LHR-7788",
+    "registered": true,
+    "cumulative_dwell_sec": 40,
+    "sighting_ids": ["s-007"],
+    "alert_status": "none",
+    "alert_snapshot_url": null
+  }
+]

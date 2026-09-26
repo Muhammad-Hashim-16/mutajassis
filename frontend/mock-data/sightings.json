@@ -1,0 +1,122 @@
+[
+  {
+    "id": "s-001",
+    "camera_id": "cam-001",
+    "track_id": "trk-a1",
+    "plate_text": "LEA-4521",
+    "plate_confidence": 0.94,
+    "plate_status": "readable",
+    "first_seen_sec": 120,
+    "last_seen_sec": 185,
+    "dwell_sec": 65,
+    "snapshot_url": "/placeholder-snapshots/car1.jpg"
+  },
+  {
+    "id": "s-002",
+    "camera_id": "cam-002",
+    "track_id": "trk-b1",
+    "plate_text": "LEA-4521",
+    "plate_confidence": 0.89,
+    "plate_status": "readable",
+    "first_seen_sec": 310,
+    "last_seen_sec": 345,
+    "dwell_sec": 35,
+    "snapshot_url": "/placeholder-snapshots/car1-cam2.jpg"
+  },
+  {
+    "id": "s-003",
+    "camera_id": "cam-001",
+    "track_id": "trk-a2",
+    "plate_text": "MUL-9931",
+    "plate_confidence": 0.91,
+    "plate_status": "readable",
+    "first_seen_sec": 450,
+    "last_seen_sec": 620,
+    "dwell_sec": 170,
+    "snapshot_url": "/placeholder-snapshots/car2.jpg"
+  },
+  {
+    "id": "s-004",
+    "camera_id": "cam-003",
+    "track_id": "trk-c1",
+    "plate_text": "FSD-3319",
+    "plate_confidence": 0.97,
+    "plate_status": "readable",
+    "first_seen_sec": 80,
+    "last_seen_sec": 110,
+    "dwell_sec": 30,
+    "snapshot_url": "/placeholder-snapshots/car3.jpg"
+  },
+  {
+    "id": "s-005",
+    "camera_id": "cam-002",
+    "track_id": "trk-b2",
+    "plate_text": null,
+    "plate_confidence": null,
+    "plate_status": "unreadable",
+    "first_seen_sec": 700,
+    "last_seen_sec": 780,
+    "dwell_sec": 80,
+    "snapshot_url": "/placeholder-snapshots/car4-blurry.jpg"
+  },
+  {
+    "id": "s-006",
+    "camera_id": "cam-003",
+    "track_id": "trk-c2",
+    "plate_text": null,
+    "plate_confidence": null,
+    "plate_status": "no_plate",
+    "first_seen_sec": 900,
+    "last_seen_sec": 960,
+    "dwell_sec": 60,
+    "snapshot_url": "/placeholder-snapshots/bike1.jpg"
+  },
+  {
+    "id": "s-007",
+    "camera_id": "cam-001",
+    "track_id": "trk-a3",
+    "plate_text": "LHR-7788",
+    "plate_confidence": 0.88,
+    "plate_status": "readable",
+    "first_seen_sec": 1050,
+    "last_seen_sec": 1090,
+    "dwell_sec": 40,
+    "snapshot_url": "/placeholder-snapshots/car5.jpg"
+  },
+  {
+    "id": "s-008",
+    "camera_id": "cam-003",
+    "track_id": "trk-c3",
+    "plate_text": "MUL-9931",
+    "plate_confidence": 0.85,
+    "plate_status": "readable",
+    "first_seen_sec": 1200,
+    "last_seen_sec": 1450,
+    "dwell_sec": 250,
+    "snapshot_url": "/placeholder-snapshots/car2-cam3.jpg"
+  },
+  {
+    "id": "s-009",
+    "camera_id": "cam-002",
+    "track_id": "trk-b3",
+    "plate_text": null,
+    "plate_confidence": null,
+    "plate_status": "unreadable",
+    "first_seen_sec": 1500,
+    "last_seen_sec": 1530,
+    "dwell_sec": 30,
+    "snapshot_url": "/placeholder-snapshots/car6-night.jpg"
+  },
+  {
+    "id": "s-010",
+    "camera_id": "cam-001",
+    "track_id": "trk-a4",
+    "plate_text": "ISB-5567",
+    "plate_confidence": 0.92,
+    "plate_status": "readable",
+    "first_seen_sec": 1600,
+    "last_seen_sec": 1780,
+    "dwell_sec": 180,
+    "snapshot_url": "/placeholder-snapshots/car7.jpg"
+  }
+]

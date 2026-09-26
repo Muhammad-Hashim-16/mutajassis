@@ -1,0 +1,17 @@
+[
+  {
+    "id": "cam-001",
+    "name": "House 14 – Street A",
+    "video_url": "/sample-videos/camera1.mp4"
+  },
+  {
+    "id": "cam-002",
+    "name": "House 22 – Street B",
+    "video_url": "/sample-videos/camera2.mp4"
+  },
+  {
+    "id": "cam-003",
+    "name": "Main Gate – Street C",
+    "video_url": "/sample-videos/camera3.mp4"
+  }
+]
