@@ -1,4 +1,5 @@
-# Node / Frontend
+cv_pipeline/output/*.mp4
+cv_pipeline/output/frontend_bundle/public/sample-videos/# Node / Frontend
 frontend/node_modules/
 frontend/.next/
 frontend/out/
@@ -43,3 +44,7 @@ Thumbs.db
 
 # Vercel
 .vercel
+cv_pipeline/output/*.mp4
+cv_pipeline/output/frontend_bundle/public/sample-videos/
+cv_pipeline/sample_data/web_ready/
+cv_pipeline/sample_data/web_ready/

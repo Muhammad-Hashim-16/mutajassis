@@ -1,0 +1,11 @@
+id,camera_id,track_id,plate_text,plate_confidence,plate_status,first_seen_sec,last_seen_sec,dwell_sec,snapshot_url
+s-001,cam-001,trk-1,,,no_plate,0.0,1.0,1.0,/snapshots/s-001.jpg
+s-002,cam-001,trk-3,,,unreadable,0.7,4.5,3.8,/snapshots/s-002.jpg
+s-003,cam-001,trk-8,,,unreadable,1.7,9.3,7.7,/snapshots/s-003.jpg
+s-004,cam-001,trk-9,ACZ-017,0.38,readable,4.2,7.7,3.5,/snapshots/s-004.jpg
+s-005,cam-001,trk-27,,,unreadable,9.7,16.5,6.8,/snapshots/s-005.jpg
+s-006,cam-002,trk-32,,,no_plate,0.2,17.2,17.0,/snapshots/s-006.jpg
+s-007,cam-002,trk-33,,,unreadable,4.2,5.5,1.3,/snapshots/s-007.jpg
+s-008,cam-002,trk-40,,,unreadable,6.3,7.5,1.2,/snapshots/s-008.jpg
+s-009,cam-002,trk-51,,,no_plate,12.8,13.0,0.2,/snapshots/s-009.jpg
+s-010,cam-002,trk-52,,,unreadable,14.7,16.3,1.7,/snapshots/s-010.jpg
