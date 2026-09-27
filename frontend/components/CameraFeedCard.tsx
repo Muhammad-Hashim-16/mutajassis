@@ -19,25 +19,6 @@ export default function CameraFeedCard({ camera, onTimeUpdate }: CameraFeedCardP
       setHasError(true);
       return;
     }
-
-    // Proactively verify if the video URL exists and serves actual video content
-    let isMounted = true;
-    fetch(camera.video_url, { method: "HEAD" })
-      .then((res) => {
-        if (!isMounted) return;
-        const contentType = res.headers.get("content-type") || "";
-        // If file not found (404) or server returns HTML (Next.js default 404 page)
-        if (!res.ok || contentType.includes("text/html")) {
-          setHasError(true);
-        }
-      })
-      .catch(() => {
-        if (isMounted) setHasError(true);
-      });
-
-    return () => {
-      isMounted = false;
-    };
   }, [camera.video_url]);
 
   return (
@@ -53,7 +34,6 @@ export default function CameraFeedCard({ camera, onTimeUpdate }: CameraFeedCardP
               loop
               playsInline
               onPlaying={() => setIsPlaying(true)}
-              onError={() => setHasError(true)}
               onTimeUpdate={(e) => onTimeUpdate?.(camera.id, e.currentTarget.currentTime)}
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />

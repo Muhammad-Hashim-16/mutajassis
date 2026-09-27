@@ -1,12 +1,12 @@
 [
   {
     "id": "cam-001",
-    "name": "House 14 \u2013 Main Gate",
+    "name": "House 14 - Main Gate",
     "video_url": "/sample-videos/web_ready/cam1_combined.mp4"
   },
   {
     "id": "cam-002",
-    "name": "House 22 \u2013 Street Corner",
+    "name": "House 22 - Street Corner",
     "video_url": "/sample-videos/web_ready/cam2_combined.mp4"
   }
 ]
